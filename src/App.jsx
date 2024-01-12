@@ -3,7 +3,7 @@ import { useState } from "react";
 function Square({ value, onSquareClick }) {
   return (
     <button
-      className="bg-white border border-gray-400 h-12 w-12 m-1 leading-9 text-lg"
+      className={`size-20 border border-gray-500 m-2 font-bold text-2xl text-center ${value === 'X' ? 'text-red-600' : 'text-green-600'}`}
       onClick={onSquareClick}
     >
       {value}
@@ -16,14 +16,21 @@ function Board({ xIsNext, squares, onPlay }) {
   let status;
 
   if (winner) {
-    status = <div className="text-green-700 text-2xl text-center mb-2">Winner: {winner}</div>
+    status = <div className="text-center mb-3 text-3xl font-bold">Winner - <span className="text-4xl text-blue-500">{winner}</span></div>;
   } else if (squares.every((square) => square !== null)) {
-    status = <div className="text-red-600 text-2xl text-center mb-2">Game Draw</div>;
+    status = <div className="text-red-600 text-3xl font-bold text-center mb-3">Game Draw</div>;
+  } else {
+    status = (
+      <div className="text-center mb-3 text-3xl font-bold">
+        Now Turn :{" "}
+        {xIsNext ? (
+          <span className="text-blue-500">X</span>
+        ) : (
+          <span className="text-blue-500">O</span>
+        )}
+      </div>
+    );
   }
-  else {
-    status = <div className="text-2xl text-center mb-2">Now Turn :  {(xIsNext ? <span className="text-blue-500 font-bold text-2xl">X</span> : <span className="text-blue-500 font-bold text-2xl">O</span>)}</div>
-  }
-
 
   function handClick(i) {
     if (squares[i] || calculateWinner(squares)) {
@@ -70,7 +77,7 @@ export default function Game() {
 
   function handlePlay(nextSquares) {
     setXIsNext(!xIsNext);
-    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares]
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
   }
@@ -85,32 +92,26 @@ export default function Game() {
     if (move > 0) {
       description = `Go to move # ${move}`;
     } else {
-      description = <span className="text-yellow-200">Go to Start</span>
+      description = <span className="text-yellow-200">Go to Starting Position</span>;
     }
     return (
-      <li
-        key={move}
-        className="bg-gray-700 text-white mb-1 p-1 rounded-sm">
+      <li key={move} className="bg-gray-700 text-white mb-1 p-1 rounded-sm">
         <button onClick={() => jumpTo(move)}>{description}</button>
       </li>
-    )
-  })
+    );
+  });
 
   return (
-    <div className="flex justify-center p-4">
+    <div className="p-4 w-full h-screen bg-slate-900 flex justify-center items-center text-white gap-10">
       <div className="mr-16">
-        <Board
-          xIsNext={xIsNext}
-          squares={currentSquares}
-          onPlay={handlePlay} />
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div>
         <ol className="border border-gray-400 p-1 text-lg">{moves}</ol>
       </div>
     </div>
-  )
+  );
 }
-
 
 function calculateWinner(squares) {
   const lines = [
@@ -121,7 +122,7 @@ function calculateWinner(squares) {
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6]
+    [2, 4, 6],
   ];
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
