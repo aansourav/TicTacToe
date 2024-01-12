@@ -21,7 +21,7 @@ function Board({ xIsNext, squares, onPlay }) {
     status = <div className="text-red-600 text-2xl text-center mb-2">Game Draw</div>;
   }
   else {
-    status = <div className="text-2xl text-center mb-2">Next Player {(xIsNext ? <span className="text-blue-500 font-bold text-2xl">X</span> : <span className="text-blue-500 font-bold text-2xl">O</span>)}</div>
+    status = <div className="text-2xl text-center mb-2">Now Turn :  {(xIsNext ? <span className="text-blue-500 font-bold text-2xl">X</span> : <span className="text-blue-500 font-bold text-2xl">O</span>)}</div>
   }
 
 
@@ -85,7 +85,7 @@ export default function Game() {
     if (move > 0) {
       description = `Go to move # ${move}`;
     } else {
-      description = <span className="ml-4 text-yellow-200">Go to Start</span>
+      description = <span className="text-yellow-200">Go to Start</span>
     }
     return (
       <li
