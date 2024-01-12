@@ -3,7 +3,7 @@ import { useState } from "react";
 function Square({ value, onSquareClick }) {
   return (
     <button
-      className={`size-20 border border-gray-500 m-2 font-bold text-2xl text-center ${value === 'X' ? 'text-red-600' : 'text-green-600'}`}
+      className={`size-20 border border-gray-500 m-2 font-bold text-2xl text-center ${value === 'X' ? 'text-yellow-300' : 'text-green-600'}`}
       onClick={onSquareClick}
     >
       {value}
@@ -18,7 +18,7 @@ function Board({ xIsNext, squares, onPlay }) {
   if (winner) {
     status = <div className="text-center mb-3 text-3xl font-bold">Winner - <span className="text-4xl text-blue-500">{winner}</span></div>;
   } else if (squares.every((square) => square !== null)) {
-    status = <div className="text-red-600 text-3xl font-bold text-center mb-3">Game Draw</div>;
+    status = <div className="text-red-600 text-3xl font-bold text-center mb-3">Game Draw!</div>;
   } else {
     status = (
       <div className="text-center mb-3 text-3xl font-bold">
