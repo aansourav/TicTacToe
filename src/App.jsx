@@ -16,9 +16,12 @@ function Board({ xIsNext, squares, onPlay }) {
   let status;
 
   if (winner) {
-    status = `Winner: ${winner}`;
-  } else {
-    status = "Next Player " + (xIsNext ? "X" : "O");
+    status = <div className="text-green-700 text-2xl text-center mb-2">Winner: {winner}</div>
+  } else if (squares.every((square) => square !== null)) {
+    status = <div className="text-red-600 text-2xl text-center mb-2">Game Draw</div>;
+  }
+  else {
+    status = <div className="text-2xl text-center mb-2">Next Player {(xIsNext ? "X" : "O")}</div>
   }
 
 
